@@ -22,3 +22,6 @@ def advertisement(request):
 
 def advertisement_post(request):
     return render(request, "advertisement-post.html")
+
+def mini_game(request):
+    return render(request, "mini_game.html")
