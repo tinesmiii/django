@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 # Create your models here.
 User = get_user_model()
 
@@ -15,7 +16,7 @@ class Advertisement(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User, verbose_name="Пользователь", on_delete=models.CASCADE)
 
-    image = models.ImageField(verbose_name="изображение", upload_to="advertisements/")
+    image = models.ImageField(verbose_name="изображение", upload_to="advertisements/", blank=True, null=True)
 
     class Meta:
         db_table = 'advertisements'
@@ -45,3 +46,6 @@ class Advertisement(models.Model):
     def image_mini(self):
         if self.image:
             return format_html("<img src='{}' style = 'width:40px;'>", self.image.url)
+        
+    def get_absolute_url(self):
+        return reverse('adv-detail', kwargs={"pk": self.pk})

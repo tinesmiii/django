@@ -1,25 +1,36 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import render, redirect, reverse 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 # Create your views here.
-def login_viev(request):
+def login_view(request):
+    # если запрос гет 
     if request.method == "GET":
+        # проверяем авторизован ли пользователь
         if request.user.is_authenticated:
+            # если да, редиректим на страницу профиля
             return redirect(reverse("profile"))
         else:
+            # если нет, отображаем страницу входа
             return render(request, "app_auth/login.html")
-    else:
-        username = request.POST["username"]
-        password = request.POST["password"]
+    # если не гет запрос, то считаем, что POST
 
-        user = authenticate(request, username = username, password = password)
+    # получаем введеный username
+    username = request.POST["username"]
+    # получаем введенный пароль
+    password = request.POST["password"]
+    # производим вход
+    user = authenticate(request, username=username, password=password)
+    # если вход проищозошел - получили пользователь (не None)
+    if user is not None:
+        # говорим, что пользователь вошел
+        login(request, user)
+        # редиректим на страницу профиля
+        return redirect(reverse("profile"))
+    # если None - не нашли пользователя
+        # отображаем страницу с логином и дополнительно пишем ошибкуЮ переданную через контекст
+    return render(request, "app_auth/login.html", context={"error": "Пользователь не найден"})
 
-        if user is not None:
-            login(request, user)
-            return redirect(reverse("profile"))
-        else:
-            return render(request, "app_auth/login.html", context = {"error" : "Пользователь не найден"})
 @login_required(login_url=reverse_lazy("login"))
 def profile_viev(request):
     return render(request, "app_auth/profile.html")
@@ -30,8 +41,9 @@ def logout_viev(request):
     return redirect(reverse("login"))
 
 # импортируем класс формы
+# импортируем класс формы
 from .forms import RegisterForm
-def register_viev(request):
+def register(request):
     # если пришел пост запрос (не гет)
     if request.method == "POST":
         # в форму закидываем отправленные данные

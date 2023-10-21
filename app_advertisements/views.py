@@ -65,4 +65,16 @@ def mini_game(request):
 def advertisement_detail(request, pk):
     advertisement = Advertisement.objects.get(id=pk)
     context = {"advertisement": advertisement}
-    return render(request, "app_advertisements/advertisement.html", context=context)
+    return render(request, "app_advertisement/advertisement.html", context=context)
+
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+from django.db.models import Count
+
+def top_sellers(request):
+    users = User.objects.annotate(adv_count = Count('advertisement')).order_by("-adv_count")
+    context = {"users":users}
+    return render(request, "app_advertisement/top-sellers.html", context=context)

@@ -6,7 +6,7 @@ from .views import top_sellers, main, advertisement_detail, advertisement_post, 
 urlpatterns = [
     path('', main, name = "main"),
     path("top-sellers/", top_sellers, name = "top-sellers"),
-    path("advertisement/<int:pk>", advertisement_detail, name = "advertisement"),
     path("advertisement-post/", advertisement_post, name = "advertisement-post"),
-    path("mini-game/", mini_game, name = "mini-game")
+    path("mini-game/", mini_game, name = "mini-game"),
+    path("advertisement/<int:pk>", advertisement_detail, name="adv-detail")
 ]

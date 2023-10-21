@@ -48,7 +48,7 @@
     {% for ad in adverts %}
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="{{  ad.image.url  }}" width="500" class="mx-auto d-block w-33" alt="...">
+        <img src="{% if ad.image %}{{  ad.image.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" width="500" class="mx-auto d-block w-33" alt="...">
       </div>
     </div>
     {% endfor %} 
@@ -96,20 +96,20 @@
       <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="{% url 'advertisement' %}" class="nav-link">
+            <a href="{{  ad.get_absolute_url  }}" class="nav-link">
               <img src="{% if ad.image %}{{  ad.image.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" class="img-fluid rounded-start" alt="Card title">
             </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'advertisement'%}" class="nav-link"><strong>{{  ad.title  }}</strong></a>
+                <a href="{{  ad.get_absolute_url  }}" class="nav-link"><strong>{{  ad.title  }}</strong></a>
               </h5>
-              <a href="{% url 'advertisement'%}" class="nav-link">
+              <a href="{{  ad.get_absolute_url  }}" class="nav-link">
                 <p class="card-text">
                   {{  ad.description  }}
                 </p>
-                <p>Цена: {{  ad.price  }}</p>
+                <p>Цена: {{  ad.price  }} рублей</p>
                 <p>Торг: {% if ad.auction == True %} Возможен {%  else %} Отсутствует {%  endif  %}</p>
                 <span>Автор: {{  ad.user  }}</span>
                 <p class="card-text"><small class="text-muted">Размещено: {{  ad.created_date  }}</small></p>
