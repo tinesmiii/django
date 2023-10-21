@@ -2,15 +2,15 @@ from django.contrib import admin
 from .models import Advertisement
 # Register your models here.
 
-class AdvertisemntAdmin(admin.ModelAdmin):
-    list_display=["id", "title", "description", "price", "auction", "created_date", "update_date"]
+class AdvertisementAdmin(admin.ModelAdmin):
+    list_display=["id", "title", "description", "price", "auction", "created_date", "update_date", "user", "image_mini"]
     list_filter = ["auction", "price", "created_at"]
     
     actions = ["make_auction_as_false", "make_auction_as_true"]
 
     fieldsets = (
         ("Общее", {
-            "fields": ("title", "description")
+            "fields": ("title", "description", "image", "user")
         }),
         ("Финансы", {
             "fields": ("price", "auction"),
@@ -31,4 +31,4 @@ class AdvertisemntAdmin(admin.ModelAdmin):
         queryset.update(auction = True)
 
 
-admin.site.register(Advertisement, AdvertisemntAdmin)
+admin.site.register(Advertisement, AdvertisementAdmin)
