@@ -7,17 +7,25 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def main(request):
-    adverts = Advertisement.objects.all()
-    context = {"adverts" : adverts}
+     # в гет запросе смотрим был ли элемент и именем query
+    # если он был - мы получим его значение, а если не было
+    # то None (особенность работы get в dictionary)
+    title = request.GET.get("query")
+    # если есть query 
+    if title:
+        # применяем фильтр на объявления
+        adverts = Advertisement.objects.filter(title__icontains=title)
+    else:
+        # получаем все записи из БД
+        adverts = Advertisement.objects.all()
+    
+    
+    context = {"adverts": adverts, "title": title}
     return render(request, "app_advertisement/index.html", context=context)
 
 def top_sellers(request):
     return render(request, "app_advertisement/top-sellers.html")
 
-def advertisement(request):
-    adverts = Advertisement.objects.all()
-    context = {"adverts" : adverts}
-    return render(request, "app_advertisement/advertisement.html", context=context)
 
 @login_required(login_url=reverse_lazy("login"))
 def advertisement_post(request):
@@ -53,3 +61,8 @@ def mini_game(request):
     
     context = {"some_info": 123, "usd": usd_value, "eur" : eur_value}
     return render(request, "app_advertisement/mini_game.html", context=context)
+
+def advertisement_detail(request, pk):
+    advertisement = Advertisement.objects.get(id=pk)
+    context = {"advertisement": advertisement}
+    return render(request, "app_advertisements/advertisement.html", context=context)

@@ -57,19 +57,17 @@
           </a>
         </div>
         <div class="col">
-          {%  for ad in advert  %}
           <div class="card-body">
             <h5 class="card-title">
-              <a href="#" class="nav-link"><strong>{{  ad.title  }}</strong></a>
+              <a href="#" class="nav-link"><strong>{{ advertisement.title }}</strong></a>
             </h5>
             <p class="card-text">
-              {{  ad.description  }}
+              {{ advertisement.description }}
             </p>
-            <p>Цена: {{  ad.price  }}</p>
+            <p>Цена: {{ advertisement.price }}</p>
+            <span>Автор: {{ advertisement.user }}</span>
+            <p class="card-text"><small class="text-muted">Размещено: {{ advertisement.created_date }}</small></p>
             <p>Торг: {% if ad.auction == True %} Возможен {%  else %} Отсутствует {%  endif  %}</p>
-            <span>Автор: {{  ad.user  }}</span>
-            <p class="card-text"><small class="text-muted">Размещено: {{  ad.created_date  }}</small></p>
-          {%  endfor  %}
           </div>
         </div>
       </div>

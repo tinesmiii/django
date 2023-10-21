@@ -24,8 +24,6 @@ def login_viev(request):
 def profile_viev(request):
     return render(request, "app_auth/profile.html")
 
-def register_viev(request):
-    return render(request, "app_auth/register.html")
 
 def logout_viev(request):
     logout(request)
@@ -33,7 +31,7 @@ def logout_viev(request):
 
 # импортируем класс формы
 from .forms import RegisterForm
-def register(request):
+def register_viev(request):
     # если пришел пост запрос (не гет)
     if request.method == "POST":
         # в форму закидываем отправленные данные
