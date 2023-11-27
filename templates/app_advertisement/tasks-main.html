@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title>Task-main</title>
+</head>
+
+<body>
+{% block content%}
+  <ul class="nav nav-pills sticky-top bg-white nav-fill">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'main' %}">
+        <span style="font-weight: bold;">Главная</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'top-sellers' %}">
+        <span style="font-weight: bold;">Топ Экспертов</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'advertisement-post'%}">
+        <span style="font-weight: bold;">Разместить Урок или Задание</span>
+      </a>
+    </li>
+    {%  if user.is_authenticated  %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'profile'%}">
+        <span style="font-weight: bold;">Профиль</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{%  url 'logout'  %}">
+        <span style="font-weight: bold;">Выйти</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'login'%}">
+        <span style="font-weight: bold;">Войти</span>
+      </a>
+    </li>
+    {%  endif  %}
+  </ul>
+  <div id="carouselExampleIndicators" class="carousel slide bg-primary" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a href="https://yandex.ru/an/count/WZ8ejI_zOoVX2Lbm0YKH00EUS2OQbKgbKga4mGHzFfSxUxRVkVE6Er-_u_M6ErpeLEgq5qYoog0I2Iq0bKvp_Ebqtj055iYdJsbKcZzjUm4ydzxFv_HfG-q5SXiAlQ7IwG8qagpLdwGbf9_xwRH_K53GmkU7o8fqD8BGjOf4DG8Q6X82KYe22Y65vdWKdvQe2W65S4wTqgZqBb4LEWenjP_Jw9STC6KpHaQ8eYLRfJBA1JTQ33S67KUlCxxFuPmlZIhPivJ8noWtaW7DUNocHZCuMC5grmzCuto-ORBnUcwWpUuvbBjQuQvMs8cfwxh-LQDJe37JPK32kbZPup6cuLRWGqxjIyQTepom0jXMw7gfMe8Xoq2KHB6WrbIL5uoT8K-DJ6RWG46donFC5x0cDC9CADE0R94nv1We9YtugONvnl1eFefq4EK2c2u3SbjFOJemNcvWa-kvWSszWjqNLm3_iEtZWok0_xS2-7jj7rzh-_ZP9oDYXHFehAyZdFFoPhhionxBZGdOa_tSMjUS0NLGeBpyDwPjxekJznuDeasH6mVHfiXUUqE8n-Yp59pg0BtkkOhiMbcYw0BxF2CGnLofL2gjqJ2DlJnIVhCDLtruNoKY11_yseCN6KXo4OGQMoqO6qM3qVmit7FgBqMz8RmMlJZar4zcuLfe2JQtUy1DkwdqXAIgDim2I-pWDi_xFvkszauM1RK_DBUoYcQdf8Ndhn130pnBr4DZx1XwkeDt61So~2?media-test-tag=3">
+          <img src="{% static 'img/Tinkoff.jpg' %}" class="d-block w-100" alt="Реклама">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="https://yandex.ru/an/count/WfmejI_zOoVX2LcZ0dKK0BDaYoOQbKgbKga4mGHzFfSxUxRVkVE6Er-_u_M6Erpxng7t4ogreNQ97oMY4CxSwOHEeyuRMaB9cbIbAX7HG3AoeMGj-b4Y2X6LthRJpgSbe4bM6LGYeH8uq5BIZn9HY2eIrGXeQ4W8gFwvdogU89osYYU8wK-HK0qhYnySht5xQ8ZwWq6BdmaiEF6ZX4GbSl5ZGGGKkAZlfrAGKKqLgbg9VZ2OO0MCdn6irIAg1YLieAMa7oKYew4Gj_F6fRaqca_pQ2wLvjAfRPUe2icm8fc8Xc0aZGQH22910qd9kmEcRCR8S354ZOXI6UK2hSaAGc3GSVGwunttEPpp7OfgMlmGzX-ytWDNIkHZT0E51I4CyVXCZMPmi6Cb501F_JYVRvXil9uRQBDx3cKIHfuKDsnz7Q6MLLShtDKAEp71kgv_rUWKQCnq6P2mBbRsU8nfk1Nua5Fxad7dA0-i0BOLodQd9HYo34H950jgJLLvmTWPybH8NmOE57IwFC5y0Mj28yo4Cgs3esB8CL1CMl1J2_EDGGDrUo28SW5Cbm6vhQSm7HWlDx39zTp0vZuZziKpOZ-C1_dW6R7_dH7xNZp8r-91OAYyFVgW6vbCEXQztpXzoVHs0ftrTOHQLjxigNpPTwiqXJtPpq6EwGOSuQ53zz-OjZilNTuhGXP8bBuiMI1H-hos0rDPzraALrWfhtiiD2DvYsnFsJRF24GnLogLIciqYOoz35F-ADKH1oXC1se27_nEB8Ej_GUIabx0GEpCnGiEmA5PkwugzCwbPm2uMkIKDrA_ZdfCJh0PtGFPj4EDdf1tmaPOP8aTFC_pVcNJrhQJHR6s3isjegBPQNJm_6r4QUHDux8vPtC7duDvK000~2?media-test-tag=3">
+          <img src="{% static 'img/VK.jpg' %}" class="d-block w-100" alt="Реклама">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="https://www.tinkoff.ru/">
+          <img src="{% static 'img/tinkoff.png' %}" class="d-block w-100" alt="Реклама">
+        </a>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Предыдущий</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Следующий</span>
+    </button>
+  </div>
+  <div class="container" style="margin: 50px;">
+    <div class="display-2">
+      <span class="badge bg-primary">В центре внимания</span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <ul class="nav nav-tabs bg-white">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'main' %}">Уроки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'task-main' %}">Задания</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Избранное</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Еще что-нибудь</a>
+        </li>
+      </ul>
+      <form class="row g-3" method="get">
+        <div class="col-auto w-50">
+          <input type="text" class="form-control" name="query" value="{% if title %}{{  title  }} {%  endif  %}">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-success mb-3">Найти</button>
+        </div>
+      </form>
+    </div>
+    <div class="col">
+      {% for ad in tasks %}
+      <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="{{  tasks.get_absolute_url  }}" class="nav-link">
+              <img src="{% if tasks.image_task %}{{  tasks.image_task.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" class="img-fluid rounded-start" alt="Card title">
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{{  tasks.get_absolute_url  }}" class="nav-link"><strong>{{  tasks.title_task  }}</strong></a>
+              </h5>
+              <a href="{{  tasks.get_absolute_url  }}" class="nav-link">
+                <p class="card-text">
+                  {{ tasks.description_task  }}
+                </p>
+                <span>Автор: {{  task.user  }}</span>
+                <p class="card-text"><small class="text-muted">Размещено: {{  tasks.created_date_task  }}</small></p>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}  
+      </div>
+    </div>
+  </div>
+  <footer style="padding: 100px;" class="bg-primary">
+    <nav class="navbar navbar-expand-sm navbar-dark">
+      <a class="navbar-brand" href="#">Добавьте</a>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+              aria-label="Toggle navigation"></button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" aria-current="page">сюда<span
+                    class="visually-hidden">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">что</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">хотите</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownId">
+              <a class="dropdown-item" href="#">например</a>
+              <a class="dropdown-item" href="#">ссылки на социальные сети</a>
+            </div>
+          </li>
+        </ul>
+        <form class="d-flex my-2 my-lg-0">
+          <input class="form-control me-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </footer>
+{% endblock %}
+</body>
+
+</html>

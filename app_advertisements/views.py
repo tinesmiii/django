@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Advertisement
+from .models import Advertisement, Task
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -23,8 +23,7 @@ def main(request):
     context = {"adverts": adverts, "title": title}
     return render(request, "app_advertisement/index.html", context=context)
 
-def top_sellers(request):
-    return render(request, "app_advertisement/top-sellers.html")
+
 
 
 @login_required(login_url=reverse_lazy("login"))
@@ -78,3 +77,21 @@ def top_sellers(request):
     users = User.objects.annotate(adv_count = Count('advertisement')).order_by("-adv_count")
     context = {"users":users}
     return render(request, "app_advertisement/top-sellers.html", context=context)
+
+
+def task(request):
+         # в гет запросе смотрим был ли элемент и именем query
+    # если он был - мы получим его значение, а если не было
+    # то None (особенность работы get в dictionary)
+    title_task = request.GET.get("query")
+    # если есть query 
+    if title_task:
+        # применяем фильтр на объявления
+        tasks = Task.objects.filter(title__icontains=title_task)
+    else:
+        # получаем все записи из БД
+        tasks = Task.objects.all()
+    
+    
+    context = {"tasks": tasks, "title": title_task}
+    return render(request, "app_advertisement/tasks-main.html", context=context)

@@ -16,12 +16,12 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'top-sellers' %}">
-        <span style="font-weight: bold;">Топ продавцов</span>
+        <span style="font-weight: bold;">Топ Экспертов</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'advertisement-post'%}">
-        <span style="font-weight: bold;">Разместить объявление</span>
+        <span style="font-weight: bold;">Разместить Урок или Задание</span>
       </a>
     </li>
     {%  if user.is_authenticated  %}
@@ -43,20 +43,34 @@
     </li>
     {%  endif  %}
   </ul>
-
-  <div id="carouselExampleControls" class="carousel slide bg-primary" data-bs-ride="carousel">
-    {% for ad in adverts %}
+  <div id="carouselExampleIndicators" class="carousel slide bg-primary" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="{% if ad.image %}{{  ad.image.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" width="500" class="mx-auto d-block w-33" alt="...">
+        <a href="https://yandex.ru/an/count/WZ8ejI_zOoVX2Lbm0YKH00EUS2OQbKgbKga4mGHzFfSxUxRVkVE6Er-_u_M6ErpeLEgq5qYoog0I2Iq0bKvp_Ebqtj055iYdJsbKcZzjUm4ydzxFv_HfG-q5SXiAlQ7IwG8qagpLdwGbf9_xwRH_K53GmkU7o8fqD8BGjOf4DG8Q6X82KYe22Y65vdWKdvQe2W65S4wTqgZqBb4LEWenjP_Jw9STC6KpHaQ8eYLRfJBA1JTQ33S67KUlCxxFuPmlZIhPivJ8noWtaW7DUNocHZCuMC5grmzCuto-ORBnUcwWpUuvbBjQuQvMs8cfwxh-LQDJe37JPK32kbZPup6cuLRWGqxjIyQTepom0jXMw7gfMe8Xoq2KHB6WrbIL5uoT8K-DJ6RWG46donFC5x0cDC9CADE0R94nv1We9YtugONvnl1eFefq4EK2c2u3SbjFOJemNcvWa-kvWSszWjqNLm3_iEtZWok0_xS2-7jj7rzh-_ZP9oDYXHFehAyZdFFoPhhionxBZGdOa_tSMjUS0NLGeBpyDwPjxekJznuDeasH6mVHfiXUUqE8n-Yp59pg0BtkkOhiMbcYw0BxF2CGnLofL2gjqJ2DlJnIVhCDLtruNoKY11_yseCN6KXo4OGQMoqO6qM3qVmit7FgBqMz8RmMlJZar4zcuLfe2JQtUy1DkwdqXAIgDim2I-pWDi_xFvkszauM1RK_DBUoYcQdf8Ndhn130pnBr4DZx1XwkeDt61So~2?media-test-tag=3">
+          <img src="{% static 'img/Tinkoff.jpg' %}" class="d-block w-100" alt="Реклама">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="https://yandex.ru/an/count/WfmejI_zOoVX2LcZ0dKK0BDaYoOQbKgbKga4mGHzFfSxUxRVkVE6Er-_u_M6Erpxng7t4ogreNQ97oMY4CxSwOHEeyuRMaB9cbIbAX7HG3AoeMGj-b4Y2X6LthRJpgSbe4bM6LGYeH8uq5BIZn9HY2eIrGXeQ4W8gFwvdogU89osYYU8wK-HK0qhYnySht5xQ8ZwWq6BdmaiEF6ZX4GbSl5ZGGGKkAZlfrAGKKqLgbg9VZ2OO0MCdn6irIAg1YLieAMa7oKYew4Gj_F6fRaqca_pQ2wLvjAfRPUe2icm8fc8Xc0aZGQH22910qd9kmEcRCR8S354ZOXI6UK2hSaAGc3GSVGwunttEPpp7OfgMlmGzX-ytWDNIkHZT0E51I4CyVXCZMPmi6Cb501F_JYVRvXil9uRQBDx3cKIHfuKDsnz7Q6MLLShtDKAEp71kgv_rUWKQCnq6P2mBbRsU8nfk1Nua5Fxad7dA0-i0BOLodQd9HYo34H950jgJLLvmTWPybH8NmOE57IwFC5y0Mj28yo4Cgs3esB8CL1CMl1J2_EDGGDrUo28SW5Cbm6vhQSm7HWlDx39zTp0vZuZziKpOZ-C1_dW6R7_dH7xNZp8r-91OAYyFVgW6vbCEXQztpXzoVHs0ftrTOHQLjxigNpPTwiqXJtPpq6EwGOSuQ53zz-OjZilNTuhGXP8bBuiMI1H-hos0rDPzraALrWfhtiiD2DvYsnFsJRF24GnLogLIciqYOoz35F-ADKH1oXC1se27_nEB8Ej_GUIabx0GEpCnGiEmA5PkwugzCwbPm2uMkIKDrA_ZdfCJh0PtGFPj4EDdf1tmaPOP8aTFC_pVcNJrhQJHR6s3isjegBPQNJm_6r4QUHDux8vPtC7duDvK000~2?media-test-tag=3">
+          <img src="{% static 'img/VK.jpg' %}" class="d-block w-100" alt="Реклама">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="https://www.tinkoff.ru/">
+          <img src="{% static 'img/tinkoff.png' %}" class="d-block w-100" alt="Реклама">
+        </a>
       </div>
     </div>
-    {% endfor %} 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Предыдущий</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Следующий</span>
     </button>
@@ -70,10 +84,10 @@
     <div class="row">
       <ul class="nav nav-tabs bg-white">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Проверенные продавцы</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Уроки</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Новинки</a>
+          <a class="nav-link" href="{% url 'task-main' %}">Задания</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Избранное</a>
@@ -109,8 +123,6 @@
                 <p class="card-text">
                   {{  ad.description  }}
                 </p>
-                <p>Цена: {{  ad.price  }} рублей</p>
-                <p>Торг: {% if ad.auction == True %} Возможен {%  else %} Отсутствует {%  endif  %}</p>
                 <span>Автор: {{  ad.user  }}</span>
                 <p class="card-text"><small class="text-muted">Размещено: {{  ad.created_date  }}</small></p>
               </a>

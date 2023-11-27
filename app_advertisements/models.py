@@ -10,19 +10,17 @@ User = get_user_model()
 class Advertisement(models.Model):
     title = models.CharField(verbose_name="Заголовок", max_length=128)
     description = models.TextField(verbose_name="Описание")
-    price = models.DecimalField(verbose_name="Цена", max_digits=10, decimal_places=2)
-    auction = models.BooleanField(verbose_name="Торг", help_text="Отметьте, если торг уместен")
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User, verbose_name="Пользователь", on_delete=models.CASCADE)
-
-    image = models.ImageField(verbose_name="изображение", upload_to="advertisements/", blank=True, null=True)
+    image = models.ImageField(verbose_name="Обложка", upload_to="advertisements/", blank=True, null=True)
+    video = models.FileField(verbose_name="Видео", upload_to="advertisements/", blank=True, null=True)
 
     class Meta:
         db_table = 'advertisements'
 
     def __str__(self):
-        return f"advertisement(id = {self.id}, title = {self.title}, price = {self.price})"
+        return f"advertisement(id = {self.id}, title = {self.title})"
     
     @admin.display(description="дата создания")
     def created_date(self):
@@ -49,3 +47,49 @@ class Advertisement(models.Model):
         
     def get_absolute_url(self):
         return reverse('adv-detail', kwargs={"pk": self.pk})
+    
+    @admin.display(description="Видео")
+    def video_mini(self):
+        if self.video:
+            return format_html("<img src='{}' style = 'width:40px;'>", self.video.url)
+        
+
+class Task(models.Model):
+    title_task = models.CharField(verbose_name="Заголовок", max_length=128)
+    description_task = models.TextField(verbose_name="Задание")
+    points_task = models.IntegerField(verbose_name="Баллы", default=1)
+    created_at_task = models.DateTimeField(auto_now_add=True)
+    update_at_task = models.DateTimeField(auto_now=True) 
+    user = models.ForeignKey(to=User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    image_task = models.ImageField(verbose_name="Обложка", upload_to="advertisements/", blank=True, null=True)
+    class Meta:
+        db_table = 'tasks'
+
+    def __str__(self):
+        return f"task(id = {self.id}, title = {self.title_task})"
+    
+    @admin.display(description="дата создания")
+    def created_date_task(self):
+ 
+        if self.created_at_task.date() == timezone.now().date():
+            created_time_task = self.created_at_task.time().strftime("%H:%M")
+            return format_html("<span style = 'color:blue;'>Сегодня в {} </span>",created_time_task)
+        else:
+            return self.created_at_task.strftime("%d:%m%y в %H:%M")
+
+    @admin.display(description="дата обновления")
+    def update_date_task(self):
+    
+        if self.update_at_task.date() == timezone.now().date():
+            update_time_task = self.update_at_task.time().strftime("%H:%M")
+            return format_html("<span style = 'color:blue;'>Сегодня в {} </span>", update_time_task)
+        else:
+            return self.update_at_task.strftime("%d:%m%y в %H:%M")
+
+    @admin.display(description="Изображение")
+    def image_mini_task(self):
+        if self.image_task:
+            return format_html("<img src='{}' style = 'width:40px;'>", self.image_task.url)
+        
+    def get_absolute_url(self):
+        return reverse('task-detail', kwargs={"pk": self.pk})
