@@ -78,8 +78,13 @@ def top_sellers(request):
     context = {"users":users}
     return render(request, "app_advertisement/top-sellers.html", context=context)
 
+def top_children(request):
+    users = User.objects.annotate(task_count= Count('task')).order_by("-task_count")
+    context = {"users":users}
+    return render(request, "app_advertisement/top-children.html", context=context)
 
-def task(request):
+
+def task_main(request):
          # в гет запросе смотрим был ли элемент и именем query
     # если он был - мы получим его значение, а если не было
     # то None (особенность работы get в dictionary)
@@ -95,3 +100,30 @@ def task(request):
     
     context = {"tasks": tasks, "title": title_task}
     return render(request, "app_advertisement/tasks-main.html", context=context)
+@login_required(login_url=reverse_lazy("login"))
+def task(request, pk):
+    answer = request.GET.get("answer")
+    tasks = Task.objects.get(id=pk)
+    if answer == Task.objects.all().order_by('right_answer'):
+        text = "верно"
+    else:
+        text = "неверно"
+    context = {"tasks": tasks, "text" : text}
+    return render(request, "app_advertisement/task.html", context=context)
+
+@login_required(login_url=reverse_lazy("login"))
+def task_post(request):
+    from .forms import TaskForm
+    if request.method == "POST":
+        form = TaskForm(request.POST, request.FILES)
+        if form.is_valid():
+            task = Task(**form.cleaned_data)
+            task.user = request.user
+            task.save()
+            url = reverse("main")
+            return redirect(url)  
+              
+    form = TaskForm()
+    context = {"form":form}
+    return render(request, "app_advertisement/task-post.html", context = context)
+

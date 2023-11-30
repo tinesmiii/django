@@ -62,6 +62,7 @@ class Task(models.Model):
     update_at_task = models.DateTimeField(auto_now=True) 
     user = models.ForeignKey(to=User, verbose_name="Пользователь", on_delete=models.CASCADE)
     image_task = models.ImageField(verbose_name="Обложка", upload_to="advertisements/", blank=True, null=True)
+    right_answer = models.IntegerField(verbose_name="Верный ответ", default=1)
     class Meta:
         db_table = 'tasks'
 
@@ -92,4 +93,7 @@ class Task(models.Model):
             return format_html("<img src='{}' style = 'width:40px;'>", self.image_task.url)
         
     def get_absolute_url(self):
-        return reverse('task-detail', kwargs={"pk": self.pk})
+        return reverse('task', kwargs={"pk": self.pk})
+    
+    
+    

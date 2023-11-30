@@ -106,28 +106,32 @@
       </form>
     </div>
     <div class="col">
-      {% for ad in tasks %}
+      {% for tk in tasks %}
       <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="{{  tasks.get_absolute_url  }}" class="nav-link">
-              <img src="{% if tasks.image_task %}{{  tasks.image_task.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" class="img-fluid rounded-start" alt="Card title">
+            <a href="{{  tk.get_absolute_url  }}" class="nav-link">
+              <img src="{% if tk.image_task %}{{  tk.image_task.url  }}{%  else  %}{% static 'img/table.png' %}{% endif %}" class="img-fluid rounded-start" alt="Card title">
             </a>
           </div>
-          <div class="col-md-8">
+          <div class="col">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{{  tasks.get_absolute_url  }}" class="nav-link"><strong>{{  tasks.title_task  }}</strong></a>
+                <a href="{{  tk.get_absolute_url  }}" class="nav-link"><strong>{{  tk.title_task  }}</strong></a>
               </h5>
-              <a href="{{  tasks.get_absolute_url  }}" class="nav-link">
+              <a href="{{  tk.get_absolute_url  }}" class="nav-link">
                 <p class="card-text">
-                  {{ tasks.description_task  }}
+                  {{ tk.description_task  }}
                 </p>
-                <span>Автор: {{  task.user  }}</span>
-                <p class="card-text"><small class="text-muted">Размещено: {{  tasks.created_date_task  }}</small></p>
+                <span>Автор: {{  tk.user  }}</span>
+                <p class="card-text"><small class="text-muted">Размещено: {{  tk.created_date_task  }}</small></p>
               </a>
             </div>
           </div>
+          <div class="col offset-2">
+            <h5>Баллы: {{  tk.points_task  }}</h5>
+          </div>
+          
         </div>
       {% endfor %}  
       </div>

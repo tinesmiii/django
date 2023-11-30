@@ -69,20 +69,7 @@
         </div>
         <div class="col offset-2">
           <h5>Баллы: {{  tasks.points_task  }}</h5>
-          <form class="row g-3" method="get">
-            {% csrf_token %}
-            <p>Введите ответ <input name="answer" class="form-control" /></p>
-            <h6>(Вводите ответ в порядке возростания чисел)</h6>
-            <input type="submit"  class="btn btn-success mb-3" value="Проверить" />
-            <h4>{{  text  }}</h4>
-          </form>
-          {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+          <h5>Задание выполнено {{  answer.answer  }}</h5>
         </div>
       </div>
     </div>

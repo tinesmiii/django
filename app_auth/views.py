@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from .models import Profile, User
 # Create your views here.
 def login_view(request):
     # если запрос гет 
@@ -56,3 +57,4 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, "app_auth/register.html", context = {"form": form})
+

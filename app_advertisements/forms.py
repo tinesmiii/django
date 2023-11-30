@@ -1,5 +1,5 @@
 from django import forms
-from .models import Advertisement
+from .models import Advertisement, Task
 from django.core.exceptions import ValidationError
 # class AdvertisementForm(forms.Form):
 #     title = forms.CharField(max_length=128, widget = )
@@ -24,3 +24,18 @@ class AdvertisementForm(forms.ModelForm):
         if data and data.startswith("?"):
             raise ValidationError("Вопросительный знак в заголовке")
         return data
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title_task', 'description_task', "image_task",'right_answer', 'points_task']
+        widgets = { 
+            "title_task" : forms.TextInput(attrs={"class": "form-control form-control-lg"}),
+            "description_task" : forms.Textarea(attrs={"class": "form-control form-control-lg"}),
+            "image_task" : forms.FileInput(attrs={"class": "form-control form-control-lg"}),
+            "right_answer" : forms.NumberInput(attrs={"class": "form-control form-control-lg"}),
+            "points_task" : forms.NumberInput(attrs={"class": "form-control form-control-lg"})
+        }
+
+
